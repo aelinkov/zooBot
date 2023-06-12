@@ -20,6 +20,7 @@ class Bot {
         collectionName: "sessions",
       })
     );
+    this.bot.telegram.setWebhook("https://shaktgbot.onrender.com/shakrobot");
   }
   init() {
     this.commands = [new StartCommand(this.bot), new AdminCommand(this.bot)];
@@ -32,11 +33,18 @@ class Bot {
 const bot = new Bot(BotDb);
 setTimeout(() => {
   bot.init();
+
   const app = express();
   const port = process.env.PORT || 3000;
   app.get("/", (req, res) => res.send("Hello World!"));
-  app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`);
+  app.use(bot.bot.webhookCallback("/shakrobot"));
+
+  app.post("/shakrobot", (req, res) => {
+    console.log(req.body);
+    return bot.bot.handleUpdate(req.body, res);
   });
-  console.log("Bot run!");
+
+  app.listen(port, () => {
+    console.log(`Bot app listening on port ${port}!`);
+  });
 }, 5000);
