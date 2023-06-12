@@ -31,4 +31,7 @@ class Bot {
   }
 }
 const bot = new Bot(BotDb);
-bot.init();
+setTimeout(() => {
+  bot.init();
+  console.log("Bot run!");
+}, 5000);
