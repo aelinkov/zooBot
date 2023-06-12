@@ -1,6 +1,4 @@
 import { Telegraf } from "telegraf";
-import { IConfigInterface } from "./config/config.interface";
-import { BotConfig } from "./config/config.service";
 import { BotDb } from "./db/db.service";
 import { IContextInterface } from "./context/context.interface";
 import { Command } from "./commands/command.class";
@@ -14,12 +12,9 @@ class Bot {
   bot: Telegraf<IContextInterface>;
   commands: Command[] = [];
   constructor(
-    private readonly configService: IConfigInterface,
     private readonly dbService: IDbInterface
   ) {
-    this.bot = new Telegraf<IContextInterface>(
-      this.configService.get("BOT_TOKEN")
-    );
+    this.bot = new Telegraf<IContextInterface>(process.env.BOT_TOKEN as string);
     this.bot.use(
       session(this.dbService.getDb(), {
         sessionName: "session",
@@ -35,5 +30,5 @@ class Bot {
     this.bot.launch();
   }
 }
-const bot = new Bot(BotConfig, BotDb);
+const bot = new Bot(BotDb);
 bot.init();

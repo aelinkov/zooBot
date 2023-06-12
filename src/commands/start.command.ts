@@ -3,7 +3,7 @@ import { IContextInterface } from "../context/context.interface";
 import { Command } from "./command.class";
 import { UsersDb } from "../db/users.service";
 import User from "../db/users.model";
-import { BotConfig } from "../config/config.service";
+import { BotConfig } from "../config0/config.service";
 
 export class StartCommand extends Command {
   mainButtom = Markup.keyboard(

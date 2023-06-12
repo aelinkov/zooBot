@@ -1,11 +1,10 @@
 import { IDbInterface } from "./db.interface";
 import { Db, MongoClient } from "mongodb";
-import { BotConfig } from "../config/config.service";
 
 class DbService implements IDbInterface {
   private db: Db;
   constructor() {
-    const client = new MongoClient(BotConfig.get("MONGODB_URI"), {
+    const client = new MongoClient(process.env.MONGODB_URI as string, {
       monitorCommands: true,
     });
     this.db = client.db("shak_bot");

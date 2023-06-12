@@ -1,6 +1,5 @@
 import { IDbInterface } from "./db.interface";
 import { Db, MongoClient, Collection, ObjectId, Document } from "mongodb";
-import { BotConfig } from "../config/config.service";
 
 import { BotDb } from "./db.service";
 import { IUsersInterface } from "./users.interface";
