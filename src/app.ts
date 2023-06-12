@@ -1,3 +1,4 @@
+import express from "express";
 import { Telegraf } from "telegraf";
 import { BotDb } from "./db/db.service";
 import { IContextInterface } from "./context/context.interface";
@@ -11,9 +12,7 @@ import { IDbInterface } from "./db/db.interface";
 class Bot {
   bot: Telegraf<IContextInterface>;
   commands: Command[] = [];
-  constructor(
-    private readonly dbService: IDbInterface
-  ) {
+  constructor(private readonly dbService: IDbInterface) {
     this.bot = new Telegraf<IContextInterface>(process.env.BOT_TOKEN as string);
     this.bot.use(
       session(this.dbService.getDb(), {
@@ -33,5 +32,11 @@ class Bot {
 const bot = new Bot(BotDb);
 setTimeout(() => {
   bot.init();
+  const app = express();
+  const port = process.env.PORT || 3000;
+  app.get("/", (req, res) => res.send("Hello World!"));
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}!`);
+  });
   console.log("Bot run!");
 }, 5000);
