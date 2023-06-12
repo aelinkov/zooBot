@@ -3,7 +3,6 @@ import { IContextInterface } from "../context/context.interface";
 import { Command } from "./command.class";
 import { UsersDb } from "../db/users.service";
 import User from "../db/users.model";
-import { BotConfig } from "../config0/config.service";
 
 export class StartCommand extends Command {
   mainButtom = Markup.keyboard(
@@ -76,7 +75,7 @@ ${this.data.start_introduction}
         } as User);
         ctx.reply(this.data.booking_conclusion, this.mainButtom);
         ctx.telegram.sendMessage(
-          BotConfig.get("ADMIN_ID"),
+          process.env.ADMIN_ID as string,
           `🐈‍⬛ <b>Мяу!</b> У тебя новая заявка!
 🌚 ${currentUser?.first_name || ""} ${
             currentUser?.last_name || ""
