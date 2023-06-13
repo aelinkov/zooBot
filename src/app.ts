@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { Telegraf } from "telegraf";
 import { BotDb } from "./db/db.service";
 import { IContextInterface } from "./context/context.interface";
@@ -38,10 +38,10 @@ setTimeout(() => {
   bot.init();
   const app = express();
   const port = process.env.PORT || 3000;
-  app.get("/", (req, res) => res.send("Hello World!"));
   app.use(bot.bot.webhookCallback("/shakrobot"));
+  app.get("/", (req, res) => res.send("Hello World!"));
 
-  app.post("/shakrobot", (req, res) => {
+  app.post("/shakrobot", (req: Request, res: Response) => {
     console.log(req.body);
     return bot.bot.handleUpdate(req.body, res);
   });

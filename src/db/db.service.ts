@@ -7,6 +7,7 @@ class DbService implements IDbInterface {
     const client = new MongoClient(process.env.MONGODB_URI as string, {
       monitorCommands: true,
     });
+    client.connect();
     this.db = client.db("shak_bot");
   }
   getDb() {
