@@ -20,11 +20,14 @@ class Bot {
         collectionName: "sessions",
       })
     );
-    // this.bot.telegram.setWebhook(
-    //   "https://ill-puce-termite-belt.cyclic.app/shakrobot"
-    // );
   }
-  init() {
+  async init() {
+    await this.bot.telegram.setWebhook(
+      "https://ill-puce-termite-belt.cyclic.app/shakrobot"
+    );
+    //await bot.bot.startWebhook(`/shakrobot`);
+    const webhookStatus = await this.bot.telegram.getWebhookInfo();
+    console.log("Webhook status", webhookStatus);
     this.commands = [new StartCommand(this.bot), new AdminCommand(this.bot)];
     for (const command of this.commands) {
       command.handle();
