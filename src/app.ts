@@ -37,13 +37,13 @@ const bot = new Bot(BotDb);
 bot.init();
 const app = express();
 const port = process.env.PORT || 3000;
-//app.use(bot.bot.webhookCallback("/shakrobot"));
+// app.use(bot.bot.webhookCallback("/shakrobot"));
 app.get("/", (req, res) => res.send("Hello World!"));
 
-app.post("/shakrobot", (req: Request, res: Response) => {
-  console.log(req.body);
-  return bot.bot.handleUpdate(req.body, res);
-});
+// app.post("/shakrobot", (req: Request, res: Response) => {
+//   console.log(req.body);
+//   return bot.bot.handleUpdate(req.body, res);
+// });
 
 app.listen(port, () => {
   console.log(`Bot app listening on port ${port}!`);
