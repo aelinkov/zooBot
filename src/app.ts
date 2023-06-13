@@ -20,9 +20,9 @@ class Bot {
         collectionName: "sessions",
       })
     );
-    this.bot.telegram.setWebhook(
-      "https://ill-puce-termite-belt.cyclic.app/shakrobot"
-    );
+    // this.bot.telegram.setWebhook(
+    //   "https://ill-puce-termite-belt.cyclic.app/shakrobot"
+    // );
   }
   init() {
     this.commands = [new StartCommand(this.bot), new AdminCommand(this.bot)];
@@ -37,7 +37,7 @@ const bot = new Bot(BotDb);
 bot.init();
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(bot.bot.webhookCallback("/shakrobot"));
+//app.use(bot.bot.webhookCallback("/shakrobot"));
 app.get("/", (req, res) => res.send("Hello World!"));
 
 app.post("/shakrobot", (req: Request, res: Response) => {
