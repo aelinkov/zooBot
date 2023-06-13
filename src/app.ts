@@ -25,7 +25,7 @@ class Bot {
     await this.bot.telegram.setWebhook(
       "https://ill-puce-termite-belt.cyclic.app/shakrobot"
     );
-    //await bot.bot.startWebhook(`/shakrobot`);
+    await bot.bot.webhookCallback(`/shakrobot`);
     const webhookStatus = await this.bot.telegram.getWebhookInfo();
     console.log("Webhook status", webhookStatus);
     this.commands = [new StartCommand(this.bot), new AdminCommand(this.bot)];
