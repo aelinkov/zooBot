@@ -20,7 +20,9 @@ class Bot {
         collectionName: "sessions",
       })
     );
-    this.bot.telegram.setWebhook("https://ill-puce-termite-belt.cyclic.app/shakrobot");
+    this.bot.telegram.setWebhook(
+      "https://ill-puce-termite-belt.cyclic.app/shakrobot"
+    );
   }
   init() {
     this.commands = [new StartCommand(this.bot), new AdminCommand(this.bot)];
@@ -30,6 +32,7 @@ class Bot {
     this.bot.launch();
   }
 }
+
 setTimeout(() => {
   const bot = new Bot(BotDb);
   bot.init();
