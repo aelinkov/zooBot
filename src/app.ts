@@ -26,7 +26,7 @@ class Bot {
         collectionName: "sessions",
       })
     );
-    await this.bot.telegram.setWebhook("https://shak.aelinkov.pro/shakrobot");
+    await this.bot.telegram.setWebhook("https://aware-train-crow.cyclic.app/shakrobot");
     this.bot.webhookCallback(`/shakrobot`);
     const webhookStatus = await this.bot.telegram.getWebhookInfo();
     console.log("Webhook status", webhookStatus);
