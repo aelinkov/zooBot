@@ -1,0 +1,33 @@
+{
+  "name": "shak_ro_bot",
+  "version": "1.0.0",
+  "description": "telegram bot",
+  "main": "app.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./dist/app.js",
+    "start:dev": "ts-node ./src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "telegramf",
+    "ts",
+    "bot"
+  ],
+  "author": "aelinkov",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "mongodb": "^5.5.0",
+    "telegraf": "^4.12.2",
+    "telegraf-session-mongodb": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "eslint": "^8.41.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
