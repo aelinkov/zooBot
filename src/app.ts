@@ -14,9 +14,7 @@ class Bot {
   bot: Telegraf<IContextInterface>;
   commands: Command[] = [];
   constructor(private readonly dbService: IDbInterface) {
-    this.bot = new Telegraf<IContextInterface>(
-      process.env.BOT_TOKEN as string
-    );
+    this.bot = new Telegraf<IContextInterface>(process.env.BOT_TOKEN as string);
   }
   async init() {
     const db = this.dbService.getDb();
@@ -26,7 +24,9 @@ class Bot {
         collectionName: "sessions",
       })
     );
-    await this.bot.telegram.setWebhook("https://aware-train-crow.cyclic.app/shakrobot");
+    await this.bot.telegram.setWebhook(
+      "https://grumpy-rugby-shirt-slug.cyclic.app//shakrobot"
+    );
     this.bot.webhookCallback(`/shakrobot`);
     const webhookStatus = await this.bot.telegram.getWebhookInfo();
     console.log("Webhook status", webhookStatus);
@@ -40,9 +40,7 @@ class Bot {
   }
 }
 
-const dbClient = new MongoClient(
-  process.env.MONGODB_URI as string
-);
+const dbClient = new MongoClient(process.env.MONGODB_URI as string);
 
 dbClient
   .connect()
@@ -62,7 +60,6 @@ dbClient
     console.error(error);
     return false;
   });
-
 
 // const app = express();
 // const port = process.env.PORT || 3000;
