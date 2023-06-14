@@ -28,8 +28,8 @@ class Bot {
       "https://grumpy-rugby-shirt-slug.cyclic.app//shakrobot"
     );
     this.bot.webhookCallback(`/shakrobot`);
-    const webhookStatus = await this.bot.telegram.getWebhookInfo();
-    console.log("Webhook status", webhookStatus);
+    // const webhookStatus = await this.bot.telegram.getWebhookInfo();
+    // console.log("Webhook status", webhookStatus);
     this.commands = [
       new StartCommand(this.bot, db),
       new AdminCommand(this.bot, db),
