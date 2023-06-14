@@ -2,7 +2,7 @@
   "name": "shak_ro_bot",
   "version": "1.0.0",
   "description": "telegram bot",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/app.js",
