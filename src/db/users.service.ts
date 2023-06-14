@@ -1,14 +1,13 @@
 import { IDbInterface } from "./db.interface";
 import { Db, MongoClient, Collection, ObjectId, Document } from "mongodb";
 
-import { BotDb } from "./db.service";
 import { IUsersInterface } from "./users.interface";
 import User from "./users.model";
 
-class UsersService implements IUsersInterface {
+export class UsersService implements IUsersInterface {
   private collection: Collection<User>;
-  constructor() {
-    this.collection = BotDb.getDb().collection("users");
+  constructor(dbService: Db) {
+    this.collection = dbService.collection("users");
   }
   async getAll() {
     const results = await this.collection.find({}).toArray();
@@ -31,4 +30,4 @@ class UsersService implements IUsersInterface {
   }
 }
 
-export const UsersDb = new UsersService();
+//export const UsersDb = new UsersService();

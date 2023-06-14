@@ -1,14 +1,17 @@
 import { IDbInterface } from "./db.interface";
 import { Db, MongoClient } from "mongodb";
 
-class DbService implements IDbInterface {
+export class DbService implements IDbInterface {
   private db: Db;
-  constructor() {
-    const client = new MongoClient(process.env.MONGODB_URI as string, {
-      monitorCommands: true,
-    });
+  constructor(dbClient: MongoClient) {
+    // const client = new MongoClient(
+    //   "mongodb+srv://tgBot:Knopa2a4@cluster0.x9uycny.mongodb.net/?retryWrites=true&w=majority" as string,
+    //   {
+    //     monitorCommands: true,
+    //   }
+    // );
     //client.connect();
-    this.db = client.db("shak_bot");
+    this.db = dbClient.db("shak_bot");
   }
   getDb() {
     if (!this.db) {
@@ -18,4 +21,4 @@ class DbService implements IDbInterface {
   }
 }
 
-export const BotDb = new DbService();
+//export const BotDb = new DbService();

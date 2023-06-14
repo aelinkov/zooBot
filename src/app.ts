@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import { Telegraf } from "telegraf";
-import { BotDb } from "./db/db.service";
 import { IContextInterface } from "./context/context.interface";
 import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";
@@ -8,46 +7,58 @@ import { AdminCommand } from "./commands/admin.command";
 
 import { session } from "telegraf-session-mongodb";
 import { IDbInterface } from "./db/db.interface";
+import { MongoClient } from "mongodb";
+import { DbService } from "./db/db.service";
 
 class Bot {
   bot: Telegraf<IContextInterface>;
   commands: Command[] = [];
   constructor(private readonly dbService: IDbInterface) {
-    this.bot = new Telegraf<IContextInterface>(process.env.BOT_TOKEN as string);
+    this.bot = new Telegraf<IContextInterface>(
+      process.env.BOT_TOKEN as string
+    );
+  }
+  async init() {
+    const db = this.dbService.getDb();
     this.bot.use(
-      session(this.dbService.getDb(), {
+      session(db, {
         sessionName: "session",
         collectionName: "sessions",
       })
     );
-  }
-  async init() {
-    await this.bot.telegram.setWebhook(
-      "https://ill-puce-termite-belt.cyclic.app/shakrobot"
-    );
-    await bot.bot.webhookCallback(`/shakrobot`);
+    await this.bot.telegram.setWebhook("https://shak.aelinkov.pro/shakrobot");
+    this.bot.webhookCallback(`/shakrobot`);
     const webhookStatus = await this.bot.telegram.getWebhookInfo();
     console.log("Webhook status", webhookStatus);
-    this.commands = [new StartCommand(this.bot), new AdminCommand(this.bot)];
+    this.commands = [
+      new StartCommand(this.bot, db),
+      new AdminCommand(this.bot, db),
+    ];
     for (const command of this.commands) {
       command.handle();
     }
-    this.bot.launch();
   }
 }
 
-const bot = new Bot(BotDb);
-bot.init();
-const app = express();
-const port = process.env.PORT || 3000;
-// app.use(bot.bot.webhookCallback("/shakrobot"));
-app.get("/", (req, res) => res.send("Hello World!"));
+const dbClient = new MongoClient(
+  process.env.MONGODB_URI as string
+);
 
-app.post("/shakrobot", (req: Request, res: Response) => {
-  console.log(req.body);
-  return bot.bot.handleUpdate(req.body, res);
-});
-
-app.listen(port, () => {
-  console.log(`Bot app listening on port ${port}!`);
-});
+dbClient
+  .connect()
+  .then(async (client) => {
+    const BotDb = new DbService(client);
+    const bot = new Bot(BotDb);
+    await bot.init();
+    const app = express();
+    const port = process.env.PORT || 3000;
+    app.use(bot.bot.webhookCallback("/shakrobot"));
+    app.get("/", (req: Request, res: Response) => res.send("Hello World!"));
+    app.listen(port, () => {
+      console.log(`Bot app listening on port ${port}!`);
+    });
+  })
+  .catch((error) => {
+    console.error(error);
+    return false;
+  });

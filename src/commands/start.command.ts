@@ -1,8 +1,9 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { IContextInterface } from "../context/context.interface";
 import { Command } from "./command.class";
-import { UsersDb } from "../db/users.service";
+import { UsersService } from "../db/users.service";
 import User from "../db/users.model";
+import { Db } from "mongodb";
 
 export class StartCommand extends Command {
   mainButtom = Markup.keyboard(
@@ -14,14 +15,15 @@ export class StartCommand extends Command {
     ],
     { columns: 2 }
   ).resize();
-  constructor(bot: Telegraf<IContextInterface>) {
-    super(bot);
+  constructor(bot: Telegraf<IContextInterface>, db: Db) {
+    super(bot, db);
   }
+
+  UsersDb = new UsersService(this.db);
+
   handle(): void {
     this.bot.start(async (ctx) => {
-      //const allUsers = await UsersDb.getAll();
-      //console.log(allUsers)
-      const currentUser = await UsersDb.currentUser(ctx.from as User);
+      const currentUser = await this.UsersDb.currentUser(ctx.from as User);
 
       ctx.session.state = {
         ...ctx.session.state,
@@ -69,7 +71,7 @@ ${this.data.start_introduction}
       } else if (
         ctx.session.state.step === Object.keys(this.data.booking).length
       ) {
-        const currentUser = await UsersDb.currentUser({
+        const currentUser = await this.UsersDb.currentUser({
           ...ctx.session.state.user,
           booking: ctx.session.state.booking,
         } as User);
@@ -126,7 +128,7 @@ ${currentUser?.booking
     });
 
     this.bot.phone(/.*/, async (ctx) => {
-      const currentUser = await UsersDb.currentUser(ctx.from as User);
+      const currentUser = await this.UsersDb.currentUser(ctx.from as User);
       ctx.session.state = {
         ...ctx.session.state,
         user: currentUser,
