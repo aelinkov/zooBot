@@ -51,7 +51,7 @@ dbClient
     const app = express();
     const port = process.env.PORT || 3000;
     app.use(bot.bot.webhookCallback("/shakrobot"));
-    app.get("/", (req: Request, res: Response) => res.send("Hello World!!!"));
+    app.get("/", (req: Request, res: Response) => res.send("ShakRoBot"));
     app.listen(port, () => {
       console.log(`Bot app listening on port ${port}!`);
     });
