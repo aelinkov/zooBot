@@ -124,6 +124,8 @@ ${currentUser?.booking
     });
 
     this.bot.hears("Цены", async (ctx) => {
+      await ctx.reply(this.data.meet_price);
+      await ctx.sendChatAction("typing");
       await ctx.reply(this.data.start_price);
     });
 
