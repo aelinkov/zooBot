@@ -114,20 +114,18 @@ ${currentUser?.booking
     });
 
     this.bot.hears("Информация", async (ctx) => {
-      ctx.sendChatAction("typing");
       await ctx.reply(this.data.start_information);
       await ctx.reply(this.data.booking_information);
     });
 
     this.bot.hears("О репетиторе", async (ctx) => {
-      ctx.sendChatAction("typing");
       await ctx.replyWithPhoto({ source: fs.createReadStream("img/p0.jpg") });
       await ctx.reply(this.data.start_about);
     });
 
     this.bot.hears("Цены", async (ctx) => {
-      ctx.sendChatAction("typing");
       await ctx.reply(this.data.meet_price);
+      await ctx.sendChatAction("typing");
       await ctx.reply(this.data.start_price);
     });
 
