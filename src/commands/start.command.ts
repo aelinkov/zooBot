@@ -41,7 +41,6 @@ ${this.data.start_introduction}
 
     this.bot.action(/.*/, async (ctx) => {
       ctx.deleteMessage();
-      ctx.sendChatAction("typing");
       if (ctx.match[0] === "booking" || !ctx.session.state.booking) {
         ctx.session.state.booking = [];
       } else {
