@@ -25,7 +25,6 @@ export class StartCommand extends Command {
   handle(): void {
     this.bot.start(async (ctx) => {
       const currentUser = await this.UsersDb.currentUser(ctx.from as User);
-      await ctx.replyWithPhoto({ source: fs.createReadStream("img/p1.jpg") });
       ctx.session.state = {
         ...ctx.session.state,
         user: currentUser,
@@ -115,18 +114,20 @@ ${currentUser?.booking
     });
 
     this.bot.hears("Информация", async (ctx) => {
+      ctx.sendChatAction("typing");
       await ctx.reply(this.data.start_information);
       await ctx.reply(this.data.booking_information);
     });
 
     this.bot.hears("О репетиторе", async (ctx) => {
+      ctx.sendChatAction("typing");
       await ctx.replyWithPhoto({ source: fs.createReadStream("img/p0.jpg") });
       await ctx.reply(this.data.start_about);
     });
 
     this.bot.hears("Цены", async (ctx) => {
+      ctx.sendChatAction("typing");
       await ctx.reply(this.data.meet_price);
-      await ctx.sendChatAction("typing");
       await ctx.reply(this.data.start_price);
     });
 
