@@ -114,8 +114,8 @@ ${currentUser?.booking
     });
 
     this.bot.hears("Информация", async (ctx) => {
-      await ctx.reply(this.data.start_information);
       await ctx.reply(this.data.booking_information);
+      await ctx.reply(this.data.start_information);
       await ctx.reply(this.data.start_ruls);
     });
 
