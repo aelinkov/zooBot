@@ -93,7 +93,6 @@ ${currentUser?.booking
       }
     });
     this.bot.hears("Записаться", (ctx) => {
-      ctx.sendChatAction("typing");
       if (ctx.session.state?.step === Object.keys(this.data.booking).length) {
         ctx.reply(
           "Вы уже записались, в ближайшее время с Вами свяжуться",
