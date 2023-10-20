@@ -25,7 +25,7 @@ class Bot {
       })
     );
     await this.bot.telegram.setWebhook(
-      "https://grumpy-rugby-shirt-slug.cyclic.app//shakrobot"
+      "https://grumpy-rugby-shirt-slug.cyclic.app/shakrobot"
     );
     this.bot.webhookCallback(`/shakrobot`);
     // const webhookStatus = await this.bot.telegram.getWebhookInfo();
@@ -60,10 +60,3 @@ dbClient
     console.error(error);
     return false;
   });
-
-// const app = express();
-// const port = process.env.PORT || 3000;
-// app.get("/", (req: Request, res: Response) => res.send("Hello World!!!"));
-// app.listen(port, () => {
-//   console.log(`Bot app listening on port ${port}!`);
-// });

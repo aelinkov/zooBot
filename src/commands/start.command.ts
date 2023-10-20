@@ -4,6 +4,7 @@ import { Command } from "./command.class";
 import { UsersService } from "../db/users.service";
 import User from "../db/users.model";
 import { Db } from "mongodb";
+import fs from "fs";
 
 export class StartCommand extends Command {
   mainButtom = Markup.keyboard(
@@ -120,7 +121,8 @@ ${currentUser?.booking
     });
 
     this.bot.hears("О репетиторе", async (ctx) => {
-      await ctx.replyWithPhoto({ source: "../img/p0.jpg" });
+      //await ctx.replyWithPhoto({ source: "../img/p0.jpg" });
+      await ctx.replyWithPhoto({ source: fs.createReadStream("/img/p0.jpg") });
       await ctx.reply(this.data.start_about);
     });
 
