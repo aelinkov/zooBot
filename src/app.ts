@@ -25,7 +25,7 @@ class Bot {
       })
     );
     await this.bot.telegram.setWebhook(
-      "https://grumpy-rugby-shirt-slug.cyclic.app/shakrobot"
+      "https://grumpy-rugby-shirt-slug.cyclic.app//shakrobot"
     );
     this.bot.webhookCallback(`/shakrobot`);
     // const webhookStatus = await this.bot.telegram.getWebhookInfo();
