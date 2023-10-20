@@ -120,6 +120,7 @@ ${currentUser?.booking
     });
 
     this.bot.hears("О репетиторе", async (ctx) => {
+      await ctx.replyWithPhoto({ source: "/img/p0.jpg" });
       await ctx.reply(this.data.start_about);
     });
 
