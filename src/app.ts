@@ -25,7 +25,7 @@ class Bot {
       })
     );
     await this.bot.telegram.setWebhook(
-      "https://grumpy-rugby-shirt-slug.cyclic.app//zoobot"
+      "https://calm-cyan-cockroach-vest.cyclic.app//zoobot"
     );
     this.bot.webhookCallback(`/zoobot`);
     // const webhookStatus = await this.bot.telegram.getWebhookInfo();
