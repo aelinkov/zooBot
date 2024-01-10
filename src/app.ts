@@ -25,7 +25,7 @@ class Bot {
       })
     );
     await this.bot.telegram.setWebhook(
-      `${process.env.CYCLIC_URL}//zoobot`
+      `https://calm-cyan-cockroach-vest.cyclic.app//zoobot`
     );
     this.bot.webhookCallback(`/zoobot`);
     // const webhookStatus = await this.bot.telegram.getWebhookInfo();
