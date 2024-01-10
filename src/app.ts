@@ -14,7 +14,7 @@ class Bot {
   bot: Telegraf<IContextInterface>;
   commands: Command[] = [];
   constructor(private readonly dbService: IDbInterface) {
-    this.bot = new Telegraf<IContextInterface>("6470633353:AAGH6JU4wdb9e-NQAWNxz0yYTeWPl8VMk-8" as string);
+    this.bot = new Telegraf<IContextInterface>(process.env.BOT_TOKEN as string);
   }
   async init() {
     const db = this.dbService.getDb();
@@ -28,8 +28,8 @@ class Bot {
       "https://grumpy-rugby-shirt-slug.cyclic.app//zoobot"
     );
     this.bot.webhookCallback(`/zoobot`);
-     const webhookStatus = await this.bot.telegram.getWebhookInfo();
-     console.log("Webhook status", webhookStatus);
+    // const webhookStatus = await this.bot.telegram.getWebhookInfo();
+    // console.log("Webhook status", webhookStatus);
     this.commands = [
       new StartCommand(this.bot, db),
       new AdminCommand(this.bot, db),
@@ -40,7 +40,7 @@ class Bot {
   }
 }
 
-const dbClient = new MongoClient("mongodb+srv://aelinkov:yXrXPgfV8TtpXc2c@cluster0.dlrnyg6.mongodb.net/?retryWrites=true&w=majority" || process.env.MONGODB_URI as string);
+const dbClient = new MongoClient(process.env.MONGODB_URI as string);
 
 dbClient
   .connect()
@@ -50,8 +50,8 @@ dbClient
     await bot.init();
     const app = express();
     const port = process.env.PORT || 3000;
-    app.use(bot.bot.webhookCallback("/shakrobot"));
-    app.get("/", (req: Request, res: Response) => res.send("ShakRoBot"));
+    app.use(bot.bot.webhookCallback("/zoobot"));
+    app.get("/", (req: Request, res: Response) => res.send("zooBot"));
     app.listen(port, () => {
       console.log(`Bot app listening on port ${port}!`);
     });
