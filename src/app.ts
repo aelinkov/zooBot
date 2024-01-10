@@ -20,12 +20,12 @@ class Bot {
     const db = this.dbService.getDb();
     this.bot.use(
       session(db, {
-        sessionName: "session",
-        collectionName: "bot",
+        sessionName: "bot",
+        collectionName: "session",
       })
     );
     await this.bot.telegram.setWebhook(
-      "https://calm-cyan-cockroach-vest.cyclic.app//zoobot"
+      `${process.env.CYCLIC_URL}//zoobot`
     );
     this.bot.webhookCallback(`/zoobot`);
     // const webhookStatus = await this.bot.telegram.getWebhookInfo();
