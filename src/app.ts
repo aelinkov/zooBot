@@ -20,8 +20,8 @@ class Bot {
     const db = this.dbService.getDb();
     this.bot.use(
       session(db, {
-        sessionName: "bot",
-        collectionName: "session",
+        sessionName: "session",
+        collectionName: "bot",
       })
     );
     await this.bot.telegram.setWebhook(
