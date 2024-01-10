@@ -1,5 +1,5 @@
 {
-  "name": "shak_ro_bot",
+  "name": "zoo_bot",
   "version": "1.0.0",
   "description": "telegram bot",
   "main": "app.ts",

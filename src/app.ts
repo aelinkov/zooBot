@@ -14,22 +14,22 @@ class Bot {
   bot: Telegraf<IContextInterface>;
   commands: Command[] = [];
   constructor(private readonly dbService: IDbInterface) {
-    this.bot = new Telegraf<IContextInterface>(process.env.BOT_TOKEN as string);
+    this.bot = new Telegraf<IContextInterface>("6470633353:AAGH6JU4wdb9e-NQAWNxz0yYTeWPl8VMk-8" as string);
   }
   async init() {
     const db = this.dbService.getDb();
     this.bot.use(
       session(db, {
         sessionName: "session",
-        collectionName: "sessions",
+        collectionName: "bot",
       })
     );
     await this.bot.telegram.setWebhook(
-      "https://grumpy-rugby-shirt-slug.cyclic.app//shakrobot"
+      "https://grumpy-rugby-shirt-slug.cyclic.app//zoobot"
     );
-    this.bot.webhookCallback(`/shakrobot`);
-    // const webhookStatus = await this.bot.telegram.getWebhookInfo();
-    // console.log("Webhook status", webhookStatus);
+    this.bot.webhookCallback(`/zoobot`);
+     const webhookStatus = await this.bot.telegram.getWebhookInfo();
+     console.log("Webhook status", webhookStatus);
     this.commands = [
       new StartCommand(this.bot, db),
       new AdminCommand(this.bot, db),
@@ -40,7 +40,7 @@ class Bot {
   }
 }
 
-const dbClient = new MongoClient(process.env.MONGODB_URI as string);
+const dbClient = new MongoClient("mongodb+srv://aelinkov:yXrXPgfV8TtpXc2c@cluster0.dlrnyg6.mongodb.net/?retryWrites=true&w=majority" || process.env.MONGODB_URI as string);
 
 dbClient
   .connect()
